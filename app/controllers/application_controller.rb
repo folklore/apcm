@@ -23,4 +23,8 @@ class ApplicationController < ActionController::Base
       redirect_to :root unless signed_in? and current_user.is_admin?
     end
 
+    def error_404
+      render '404' and return
+    end
+
 end

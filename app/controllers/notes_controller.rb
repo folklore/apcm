@@ -8,13 +8,16 @@ class NotesController < ApplicationController
     @notes = Note.with_users
 
     case params[:condition]
+      # Должна быть возможность получить только активные записи (т.е. те, у которых статус равен "active")
       when 'actived'
         @notes = @notes.actived
+      # Должна быть возможность получить записи, отсортированные по давности создания - самые свежие должны быть первыми
       when 'recent'
         @notes = @notes.recent
+      # Должна быть возможность получить N последних измененных записей, принадлежащих пользователям из города текущего пользователя, отсортированных по дате изменения по убыванию
       when 'last_changes'
         @notes = @notes.last_changes(current_user.city_id)
-                       .limit(params[:n].blank? ? 10 : params[:n])
+                       .limit(params[:n].blank? ? false : params[:n])
     end
   end
 
@@ -23,7 +26,7 @@ class NotesController < ApplicationController
                 .includes(user: { city: { } })
                 .first
 
-    render '404' and return if @note.nil?
+    error_404 if @note.nil?
   end
 
   def new
@@ -67,13 +70,13 @@ class NotesController < ApplicationController
 
   private
     def set_note
-      note = Note.where(id: params[:id])
+      @note = Note.where(id: params[:id])
 
       # Пользователь с ролью администратора может производить любые действия с любыми записями
-      note = note.where(user_id: current_user.id) unless current_user.is_admin?
+      @note = @note.where(user_id: current_user.id) unless current_user.is_admin?
 
-      @note = note.first
+      @note = @note.first
 
-      render '404' and return if @note.nil?
+      error_404 if @note.nil?
     end
 end

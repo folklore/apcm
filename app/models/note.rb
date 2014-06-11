@@ -1,6 +1,6 @@
 class Note < ActiveRecord::Base
 
-  @@statuses = %w(active deleted pending)
+  STATUSES = %w(active deleted pending)
 
   # Модель записи считается невалидной, если у нее не заполнены поля заголовок и содержимое
   validates :title, :content, :user_id,
@@ -13,7 +13,7 @@ class Note < ActiveRecord::Base
 
   # Модель записи считается невалидной, если в поле статус записано неверное значение (т.е. НЕ active, deleted или pending)
   validates :status,
-             inclusion: { in: @@statuses }
+             inclusion: { in: STATUSES }
 
   validates :user_id,
              numericality: { only_integer: true,
@@ -48,7 +48,9 @@ class Note < ActiveRecord::Base
                                     .where(users: { city_id: city_id })
                                     .order('notes.updated_at DESC') }
 
-  @@statuses.each do |s|
+  # scope :limit, ->(n) { n = n.blank? ? 10 : n.to_i; super }
+
+  STATUSES.each do |s|
     define_method("#{s}?") do
       self.status == "#{s}"
     end
