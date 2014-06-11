@@ -1,0 +1,14 @@
+%h1
+  = t '.title'
+
+%table
+  %tr
+    %th= City.human_attribute_name(:name)
+
+  - @cities.each do |city|
+    %tr
+      %td= link_to city.name, city
+
+%br
+
+= link_to t('common.create'), new_city_path

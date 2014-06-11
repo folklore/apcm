@@ -1,0 +1,10 @@
+%h1= t '.title'
+
+%table
+  %tr
+    %th= User.human_attribute_name(:name)
+    %th= User.human_attribute_name(:email)
+    %th= User.human_attribute_name(:is_admin)
+    %th= User.human_attribute_name(:city_id)
+    %th= User.human_attribute_name(:notes_count)
+  = render @users

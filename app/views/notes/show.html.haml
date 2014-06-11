@@ -1,0 +1,20 @@
+%h1= @note.title
+%p= link_to @note.user.name, @note.user
+%p= @note.content
+%p
+  Написан в:
+  = l @note.created_at, format: :default
+  \/
+  %b
+    = t "notes.status.#{@note.status}"
+
+- if signed_in? and current_user.can?(@note.user_id)
+  = link_to t('common.edit'), edit_note_path(@note)
+  |
+  - if @note.pending?
+    = link_to t('.active'), active_note_path(@note), confirm: t('common.sure'), method: :put
+    |
+  - else
+    = link_to t('common.' + ( @note.deleted? ? 'recover' : 'destroy' )), @note, confirm: t('common.sure'), method: :delete
+    |
+= link_to t('common.back'), notes_path

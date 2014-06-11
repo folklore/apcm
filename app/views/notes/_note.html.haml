@@ -1,0 +1,22 @@
+%tr
+  %td
+    = link_to note.user.name, note.user
+    %br
+    = note.user.city.name
+  %td= link_to note.title, note
+  %td= note.content
+  %td
+    %b= t "notes.status.#{note.status}"
+    %br
+    =t '.created_at'
+    = l note.created_at, format: :short
+    %br
+    =t '.updated_at'
+    = l note.updated_at, format: :short
+  %td
+    = link_to t('common.show'), note
+    - if signed_in? and current_user.can?(note.user_id)
+      %br
+      = link_to t('common.edit'), edit_note_path(note)
+      %br
+      = link_to t('common.' + ( note.deleted? ? 'recover' : 'destroy' )), note, confirm: t('common.sure'), method: :delete

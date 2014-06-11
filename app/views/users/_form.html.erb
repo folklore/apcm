@@ -1,0 +1,35 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <% if signed_in? and current_user.is_admin? %>
+    <div class="field">
+      <%= f.check_box :is_admin %>
+      <%= f.label :is_admin %>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :city_id %><br />
+    <%= f.select :city_id, City.all.collect{|c| [c.name,c.id]}, prompt: t('sessions.select_city') %>
+  </div>
+  <div class="actions">
+    <%= f.submit t('common.' + ( @user.new_record? ? 'registration' : 'update' ) )%>
+  </div>
+<% end %>

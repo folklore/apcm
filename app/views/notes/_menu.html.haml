@@ -1,0 +1,9 @@
+%p
+  = link_to t('.all'), notes_path
+  = link_to t('.actived'), notes_path('actived')
+  = link_to t('.recent'), notes_path('recent')
+  - if signed_in?
+    = link_to t('notes.new.link'), new_note_path
+- if signed_in?
+  = render 'last_changes'
+  %br

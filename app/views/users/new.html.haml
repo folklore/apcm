@@ -1,0 +1,4 @@
+%h1= t '.title'
+= render 'form'
+- if signed_in? and current_user.is_admin?
+  = link_to t('common.back'), users_path

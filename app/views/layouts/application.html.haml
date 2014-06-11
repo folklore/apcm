@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %title
+      Citymagazines
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+  - if signed_in?
+    = link_to t('.profile'), current_user
+    = link_to t('.notes'), :notes
+    - if current_user.is_admin?
+      = link_to t('.users'), :users
+      = link_to t('.cities'), :cities
+    = link_to t('sessions.signout'), :signout, method: :delete
+  - else
+    %p
+      = link_to t('.notes'), :notes
+      = link_to 'Регистрация', new_user_path
+    = render 'sessions/form'
+  %p#notice
+    = notice
+  = yield

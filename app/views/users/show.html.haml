@@ -1,0 +1,14 @@
+%h1= @user.name
+%p
+  #{User.human_attribute_name(:email)}:
+  %b= @user.email
+%p
+  #{User.human_attribute_name(:city_id)}:
+  %b= @user.city.name
+
+- if @user.is_admin
+  %p
+    %b= User.human_attribute_name(:is_admin)
+
+- if signed_in? and current_user.can?(@user.id)
+  = link_to t('common.edit'), edit_user_path(@user)

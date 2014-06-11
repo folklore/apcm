@@ -1,0 +1,4 @@
+= t '.description'
+= form_tag notes_path(condition: 'last_changes'), method: :get do
+  = text_field_tag :n, params[:n], placeholder: t('.count')
+  = submit_tag 'Показать', name: nil

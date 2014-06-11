@@ -1,0 +1,6 @@
+%tr
+  %td= link_to user.name, user
+  %td= user.email
+  %td= '+++' if user.is_admin?
+  %td= link_to user.city.name, user.city
+  %td= user.notes.size

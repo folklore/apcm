@@ -1,0 +1,104 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+dictionary:
+  cities: &cities Города
+  users: &users Пользователи
+  notes: &notes Записки
+
+ru:
+  sessions:
+    signup: Зарегистрироваться
+    signin: Войти
+    signout: Выйти
+    select_city: Выберите город
+
+  layouts:
+    application:
+      profile: Профайл
+      cities: *cities
+      users: *users
+      notes: *notes
+
+  cities:
+    index:
+      title: *cities
+
+  users:
+    index:
+      title: *users
+    edit:
+      title: Редактирование профайла
+    new:
+      title: Регистрация
+
+  notes:
+    index:
+      title: *notes
+    show:
+      active: Опубликовать
+    new:
+      title: Добавление записки
+      link:   Добавить записку
+    edit:
+      title: Редактирование записки
+    note:
+      created_at: Создана в
+      updated_at: Обнавлена в
+    status:
+      pending: в ожидании 
+      active:  активная
+      deleted: удаленная
+    notices:
+      pending: Записке присвоен статус "В ожидании"
+      deleted: Записке присвоен статус "Удаленная"
+      active: Записке присвоен статус "Активная"
+    menu:
+      all: Все
+      actived: Активные
+      recent: Недавние
+    last_changes:
+      description: N последних записей из города текущего пользователя, отсортированных с учётом даты изменения по убыванию ...
+      count: Кол-во (N)
+
+  activerecord:
+    attributes:
+      city:
+       name: Название
+      user:
+        name: Имя
+        email: Эл. почта
+        is_admin: Администратор
+        city_id: Город
+        notes_count: Кол-во записок
+      note:
+        user_id: Автор
+        title: Заголовок
+        content: Содержимое
+        status: Статус
+    errors:
+      models:
+        note:
+          attributes:
+            title:
+              should_not_have_duplicate: не должен повторяться
+        user:
+          attributes:
+            city_id:
+              blank: должен быть выбран
+
+  common:
+    show:    Просмотреть
+    edit:    Редактировать
+    create:  Добавить
+    update:  Обновить
+    destroy: Удалить
+    recover: Восстановить
+    back:    Вернуться к списку
+    sure:    Вы уверены?
+    registration: Зарегистрироваться
+
+  time:
+    formats:
+      default: "%a, %d %b %Y, %H:%M:%S"
+      short: "%d.%m.%y, %H:%M"

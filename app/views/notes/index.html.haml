@@ -1,0 +1,12 @@
+%h1= t '.title'
+
+= render 'menu'
+
+%table
+  %tr
+    %th= Note.human_attribute_name(:user_id)
+    %th= Note.human_attribute_name(:title)
+    %th= Note.human_attribute_name(:content)
+    %th.status= Note.human_attribute_name(:status)
+    %th
+  = render @notes
